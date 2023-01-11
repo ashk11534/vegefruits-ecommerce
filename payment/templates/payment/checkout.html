@@ -1,0 +1,119 @@
+
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+    h3{
+
+        color: #fff;
+
+    }
+
+    hr{
+
+        border-color: #fff;
+
+    }
+
+
+</style>
+
+    <br>
+    <div class="text-white">
+        <div class="container bg-dark shadow-md p-5" style="width:500px; border-radius:20px;">
+
+            <form id="form" method="POST" action="{% url 'complete-order' %}">
+
+                {% csrf_token %}
+
+                <div>
+
+                    <h3> Complete your order </h3>
+
+                    <p> Please enter the required information below. </p>
+ 
+                    <hr>
+
+                    <br>
+
+                    <div class="form-field">
+                    
+                        <input class="form-control validate" name="name" id="name" type="text" placeholder="Full name*" autocomplete="off" value="{{shipping.full_name}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" name="email" id="email" type="email" placeholder="Email address*" autocomplete="off" value="{{shipping.email}}" required>
+
+                    </div>
+
+                    
+                    <br>
+
+                    
+                    <div class="form-field">
+
+                        <input class="form-control validate" name="address1" id="address1" type="text" placeholder="Address 1*" autocomplete="off" value="{{shipping.address1}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" name="address2" id="address2" type="text" placeholder="Address 2*" autocomplete="off" value="{{shipping.address2}}" required>
+
+                    </div>
+
+
+                    <br>
+
+
+                    <div class="form-field">
+
+                        <input class="form-control validate" name="city" id="city" type="text" placeholder="City*" autocomplete="off" value="{{shipping.city}}" required>
+
+                    </div>
+
+
+                    <br>
+
+                    <div class="form-field">
+
+                        <input class="form-control" name="zipcode" id="zipcode" type="text" placeholder="Zip code (Optional)" autocomplete="off" value="{{shipping.zipcode}}">
+
+                    </div>
+            
+                </div>
+
+                <br>
+
+
+
+               <input id="complete-order" class="btn btn-primary navbar-btn text-white" type="submit" value="Complete order">
+              
+
+
+            </form>
+
+
+        </div>        
+
+    </div>
+    <br> <br> <br> <br> <br> <br> <br> 
+
+
+{% endblock %}

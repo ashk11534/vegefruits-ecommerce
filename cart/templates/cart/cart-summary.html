@@ -1,0 +1,169 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+
+{% block content %}
+
+<style>
+
+.ftco-cart button{
+    height: 54px !important;
+    text-align: center;
+    bordeR: 1px solid rgba(0, 0, 0, 0.05) !important;
+    color: #fff !important;
+    padding: 5px 25px;
+    font-size: 14px;
+}
+
+</style>
+
+<div class="hero-wrap hero-bread" style="background-image: url('{% static "images/bg_1.jpg" %}');">
+    <div class="container">
+      <div class="row no-gutters slider-text align-items-center justify-content-center">
+        <div class="col-md-9 ftco-animate text-center">
+          <h1 class="mb-0 bread">My Cart</h1>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <section class="ftco-section ftco-cart">
+          <section class="container">
+              <class="row">
+              <div class="col-md-12 ftco-animate">
+                  <div class="cart-list">
+                    
+                      <table class="table">
+                          <thead class="thead-primary">
+                            <tr class="text-center">
+                              <th>&nbsp;</th>
+                              <th>&nbsp;</th>
+                              <th>Product name</th>
+                              <th>Price</th>
+                              <th>Quantity</th>
+                              <th>Total</th>
+                            </tr>
+                          </thead>
+                          <tbody>
+                            {% with cart_qty=cart|length %}
+
+                            {% if cart_qty == 0 %}
+
+                            <tr>
+                                <td colspan="6">
+                                    <h1>Empty cart.</h1>
+                                </td>
+                            </tr>
+
+                            {% endif %}
+
+                            {% endwith %}
+                            
+                            {% for item in cart %}
+
+                                {% if item.qty > 0 %}
+
+                                    {% with product=item.product %}
+                                    <tr class="text-center">
+                                    <td class="product-remove">
+                                        <button type="button" data-index="{{product.id}}" class="btn btn-danger delete-button">
+                                            Delete
+                                        </button>
+                                    </td>
+                                    
+                                    <td class="image-prod"><a href="{{product.get_absolute_url}}"><div class="img" style="background-image:url({{product.image.url}});"></div></a></td>
+                                    
+                                    <td class="product-name">
+                                        <a href="{{product.get_absolute_url}}"><h3 class="text-success">{{product.title}}</h3></a>
+                                    </td>
+                                    
+                                    <td class="price">BDT {{item.price}}/kg</td>
+                                    
+                                    <td class="quantity">
+                                        <div class="input-group mb-3">
+                                        <input type="text" name="quantity" class="quantity form-control input-number" value="{{item.qty}}" min="1" max="100" readonly>
+                                        </div>
+                                    </td>
+                                    
+                                    <td class="total">BDT {{item.total}}</td>
+                                    </tr><!-- END TR-->
+                                    
+                                    {% endwith %}
+                                    
+                                {% endif %}
+                            {% endfor %}
+
+                          </tbody>
+                        </table>
+                    </div>
+              </div>
+            
+
+          {% with cart_qty=cart|length %}
+
+          {% if cart_qty > 0 %}
+          <div class="col-lg-4 mt-5 cart-wrap ftco-animate">
+            <div class="cart-total mb-3">
+                <h3>Cart Total</h3>
+                <p class="d-flex total-price">
+                    <span>Total</span>
+                    <span id="cart-total">BDT {{cart.get_total_price}}</span>
+                </p>
+            </div>
+            <p><a href="{% url 'checkout' %}" class="btn btn-primary py-3 px-4">Proceed to Checkout</a></p>
+        </div>
+   
+        {% endif %}
+
+        {% endwith %}
+
+    </section>
+</section>
+
+    <br> <br> <br> <br> <br> <br>
+<script>
+
+    $(document).on('click','.delete-button', function(e){
+
+        e.preventDefault();
+
+        $.ajax({
+
+            type: 'POST',
+
+            url: '{% url "cart-delete" %}',
+
+            data: {
+
+                product_id: $(this).data('index'),
+
+                csrfmiddlewaretoken: '{{csrf_token}}',
+
+                action: 'post',
+            },
+
+            success: function(json){
+
+                // console.log('ok');
+
+                location.reload();
+
+                document.getElementById('cart-qty').textContent = json.qty;
+
+                document.getElementById('cart-total').textContent = json.cart_total;
+
+            },
+
+            error: function(xr, errmsg, err){
+
+
+
+            }
+
+        })
+
+    })
+</script>
+
+{% endblock %}

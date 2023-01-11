@@ -1,0 +1,51 @@
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% block content %}
+
+    <div class="hero-wrap hero-bread" style="background-image: url('{% static "images/bg_1.jpg" %}');">
+      <div class="container">
+        <div class="row no-gutters slider-text align-items-center justify-content-center">
+          <div class="col-md-9 ftco-animate text-center">
+            <h1 class="mb-0 bread">Store</h1>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <section class="ftco-section">
+    	<div class="container">
+    		<div class="row">
+
+				{% if not products %}
+
+					<h3>No product is available right now!</h3>
+
+				{% endif %}
+
+				{% for product in products %}
+    			<div class="col-md-6 col-lg-3 ftco-animate">
+    				<div class="product">
+    					<a href="{{product.get_absolute_url}}" class="img-prod"><img class="img-fluid" src="{{product.image.url}}" alt="product image" style="height: 200px;">
+    						<div class="overlay"></div>
+    					</a>
+    					<div class="text py-3 pb-4 px-3 text-center">
+    						<h3><a href="#">{{product.title}}</a></h3>
+
+		    				<p class="price text-center"><span class="price-sale">BDT {{product.price}}/kg</span></p>
+	
+    					</div>
+    				</div>
+    			</div>
+
+				{% endfor %}
+    			
+    		</div>
+    	</div>
+    </section>
+
+	<br>
+
+{% endblock %}
+   

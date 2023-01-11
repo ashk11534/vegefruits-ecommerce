@@ -1,0 +1,64 @@
+
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+    h3{
+
+    color: #fff;
+
+    }
+
+    hr{
+
+    border-color: #fff;
+
+    }
+
+    .form-layout{
+
+    border-radius: 20px;
+
+    width: 500px;
+
+    }
+
+
+</style>
+
+        <br>
+        <div class="text-white">
+            <div class="container bg-dark shadow-md p-5 form-layout">
+
+                <h3>Account deletion</h3>
+    
+                <hr>
+    
+                <form method="post" autocomplete="off">
+    
+                    {% csrf_token %}
+    
+                    <p>Are you sure that you want to delete your account?</p>
+    
+                    <button type="submit" class="btn btn-danger navbar-btn text-white">Delete your account</button>
+    
+                    <br> <br>
+    
+                    <a class="btn btn-success navbar-btn text-white" type="button"  href="{% url 'profile-management' %}">Go back</a>
+    
+                </form>
+    
+            </div>
+
+    </div>
+
+        <br><br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+
+{% endblock %}

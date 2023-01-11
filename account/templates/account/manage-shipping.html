@@ -1,0 +1,60 @@
+
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+    h3{
+
+        color: #fff;
+
+    }
+
+    .form-layout{
+
+        border-radius: 20px;
+
+        width: 500px;
+
+    }
+
+
+</style>
+
+    <br>
+    <div class="text-white">
+        
+        <div class="container bg-dark shadow-md p-5 form-layout">
+
+            <h3>Manage shipping address</h3>
+            
+            <br><br>
+
+            <form method="post" autocomplete="off">
+
+                {% csrf_token %}
+
+                {% for field in form %}
+
+                    {{field|as_crispy_field}}
+
+                    <br>
+
+                {% endfor %}
+
+                <button type="submit" class="btn btn-primary navbar-btn text-white w-100 p-2">Update shipping address</button>
+
+            </form>
+
+        </div>
+
+</div>
+    <br> <br> <br> <br> <br> <br> <br> 
+
+
+{% endblock %}

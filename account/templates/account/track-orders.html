@@ -1,0 +1,71 @@
+
+{% extends 'store/base.html' %}
+
+{% load static %}
+
+{% load crispy_forms_tags %}
+
+{% block content %}
+
+<style>
+
+
+    hr{
+
+        border-color: #fff;
+
+    }
+
+    .form-layout{
+
+        border-radius: 20px;
+
+        width: 500px;
+
+    }
+
+
+</style>
+
+    <br>
+    <div class="text-white">
+
+        <div class="container bg-dark shadow-md p-5 form-layout text-center">
+
+            <h3 class="text-white">My orders</h3>
+
+            <hr>
+
+        </div>
+
+        <br>
+
+        <div class="container bg-dark shadow-md p-5 form-layout">
+
+            {% if not orders %}
+
+            <h4 class="text-white">You haven't ordered anything yet.</h4>
+
+            {% endif %}
+
+            {% for order in orders %}
+
+                <h4 class="text-white">Order Item - #{{order.id}}</h4>
+
+                <h5 class="text-white">{{order.product}}</h5>
+
+                <p> quantity x {{order.quantity}} kg </p>
+
+                <p> price: BDT {{order.price}} </p>
+
+                <hr>
+
+            {% endfor %}
+
+        </div>
+    
+    </div>
+    <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br> <br>
+
+
+{% endblock %}
